@@ -203,6 +203,33 @@ function irASlide(indice) {
     reiniciarCarruselAutomatico();
 }
 
+// --- AUTO SLIDE CADA X SEGUNDOS ---
+let autoCarousel = null;
+const delay = 4000; // 4 segundos (puedes cambiarlo)
+
+function startAutoSlide() {
+    stopAutoSlide(); // evita duplicados
+    autoCarousel = setInterval(() => {
+        siguienteSlide(); // usa tu función ya existente
+    }, delay);
+}
+
+function stopAutoSlide() {
+    if (autoCarousel) clearInterval(autoCarousel);
+}
+
+// Pausar cuando el mouse está encima (solo PC)
+const carouselContainer = document.getElementById('carousel-container');
+
+if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+    carouselContainer.addEventListener('mouseleave', startAutoSlide);
+}
+
+// Iniciar cuando cargue la página
+document.addEventListener('DOMContentLoaded', startAutoSlide);
+
+
 /* ========================================
    CARRUSEL AUTOMÁTICO
    ======================================== */
